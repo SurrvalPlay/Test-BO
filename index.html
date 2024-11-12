@@ -1,164 +1,210 @@
-<!DOCTYPE html>
-<html lang="uk">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="page-title">Сценарії для банківських рахунків - Квіз</title>
-    <link rel="stylesheet" href="styles.css">
-    <!-- Підключення зовнішнього файлу стилів для покращення підтримки коду та поділу структури і стилю -->
-</head>
-<body>
-    <!-- Перемикач мови -->
-    <div class="language-switch">
-        <button id="language-uk">Українська</button>
-        <button id="language-de">Deutsch</button>
-    </div>
+**Сценарії для кожного виду рахунків:**
 
-    <div class="scenario">
-        <h2 id="scenario-title">Сценарій для банківського рахунку</h2>
-        <!-- Основний блок сценарію для відображення питання -->
-        <p id="question"></p>
-        <!-- Контейнер для варіантів відповідей -->
-        <div id="options" class="options"></div>
-        <!-- Контейнер для відображення результату вибору користувача -->
-        <div id="result" class="result"></div>
-        <!-- Навігаційні кнопки для переміщення між питаннями -->
-        <div id="navigation" class="navigation" style="display: none;">
-            <button id="prev-button" onclick="goToPrevious()">Повернутися до минулого сценарію</button>
-            <button id="next-button" onclick="goToNext()">Перейти до наступного сценарію</button>
-        </div>
-    </div>
-    <!-- Коментарі для підвищення доступності та кращого розуміння структури HTML -->
-    <script>
-        let currentScenario = 0;
-        let language = 'uk'; // default language
+---
 
-        const scenarios = {
-            uk: [
-                {
-                    question: "Анна тільки що переїхала до Німеччини для роботи. Їй потрібно отримувати заробітну плату, платити за оренду, комунальні послуги та робити щоденні покупки. Який банківський рахунок їй слід відкрити?",
-                    options: [
-                        "Поточний рахунок (Girokonto)",
-                        "Ощадний рахунок (Sparkonto)",
-                        "Депозитний рахунок (Festgeldkonto)"
-                    ],
-                    correct: 0,
-                    explanation: "Поточний рахунок призначений для щоденних фінансових операцій. Анна зможе легко керувати своїми щоденними фінансами через цей рахунок."
-                },
-                {
-                    question: "Олексій хоче відкладати гроші на майбутню подорож, але бажає мати можливість зняти їх у разі потреби. Він також хоче отримувати відсотки на свій залишок. Який рахунок йому слід вибрати?",
-                    options: [
-                        "Ощадний рахунок (Sparkonto)",
-                        "Інвестиційний рахунок (Wertpapierdepot)",
-                        "Базовий рахунок (Basiskonto)"
-                    ],
-                    correct: 0,
-                    explanation: "Ощадний рахунок ідеально підходить для накопичення коштів з можливістю отримувати відсотки. Олексій зможе відкладати гроші на подорож і при необхідності знімати їх."
-                }
-                // Додайте інші сценарії українською мовою
-            ],
-            de: [
-                {
-                    question: "Anna ist gerade nach Deutschland gezogen, um zu arbeiten. Sie muss ihr Gehalt erhalten, Miete zahlen, Nebenkosten begleichen und tägliche Einkäufe tätigen. Welches Bankkonto sollte sie eröffnen?",
-                    options: [
-                        "Girokonto",
-                        "Sparkonto",
-                        "Festgeldkonto"
-                    ],
-                    correct: 0,
-                    explanation: "Ein Girokonto ist für tägliche finanzielle Transaktionen gedacht. Anna kann ihr tägliches Finanzmanagement problemlos über dieses Konto abwickeln."
-                },
-                {
-                    question: "Alexej möchte Geld für eine zukünftige Reise sparen, aber im Notfall darauf zugreifen können. Er möchte auch Zinsen auf sein Guthaben erhalten. Welches Konto sollte er wählen?",
-                    options: [
-                        "Sparkonto",
-                        "Wertpapierdepot",
-                        "Basiskonto"
-                    ],
-                    correct: 0,
-                    explanation: "Ein Sparkonto ist ideal zum Sparen und bietet die Möglichkeit, Zinsen zu erhalten. Alexej kann das Geld für seine Reise sparen und bei Bedarf darauf zugreifen."
-                }
-                // Додайте інші сценарії німецькою мовою
-            ]
-        };
+### **1. Поточний рахунок (Girokonto)**
 
-        function loadScenario() {
-            const scenario = scenarios[language][currentScenario];
-            document.getElementById("question").innerText = scenario.question;
-            const optionsContainer = document.getElementById("options");
-            optionsContainer.innerHTML = "";
-            scenario.options.forEach((option, index) => {
-                const button = document.createElement("button");
-                button.innerText = option;
-                button.onclick = () => checkAnswer(index);
-                optionsContainer.appendChild(button);
-            });
-        }
+**Сценарій:**
 
-        function checkAnswer(selected) {
-            const scenario = scenarios[language][currentScenario];
-            const resultContainer = document.getElementById("result");
-            if (selected === scenario.correct) {
-                resultContainer.innerHTML = `<p><strong>Вірна відповідь!</strong> ${scenario.explanation}</p>`;
-            } else {
-                resultContainer.innerHTML = `<p><strong>Неправильна відповідь.</strong> ${scenario.explanation}</p>`;
-            }
-            document.getElementById("navigation").style.display = "block";
-        }
+Анна тільки що переїхала до Німеччини для роботи. Їй потрібно отримувати заробітну плату, платити за оренду, комунальні послуги та робити щоденні покупки. Який банківський рахунок їй слід відкрити?
 
-        function goToPrevious() {
-            if (currentScenario > 0) {
-                currentScenario--;
-                loadScenario();
-                document.getElementById("result").innerHTML = "";
-                document.getElementById("navigation").style.display = "none";
-            }
-        }
+**Варіанти відповідей:**
 
-        function goToNext() {
-            if (currentScenario < scenarios[language].length - 1) {
-                currentScenario++;
-                loadScenario();
-                document.getElementById("result").innerHTML = "";
-                document.getElementById("navigation").style.display = "none";
-            }
-        }
+1. Поточний рахунок (Girokonto)
+2. Ощадний рахунок (Sparkonto)
+3. Депозитний рахунок (Festgeldkonto)
 
-        function switchLanguage(lang) {
-            language = lang;
-            currentScenario = 0;
-            updateLanguage(lang);
-            loadScenario();
-            document.getElementById("result").innerHTML = "";
-            document.getElementById("navigation").style.display = "none";
-        }
+---
 
-        function updateLanguage(lang) {
-            const titles = {
-                uk: {
-                    pageTitle: 'Сценарії для банківських рахунків - Квіз',
-                    scenarioTitle: 'Сценарій для банківського рахунку',
-                    prevButton: 'Повернутися до минулого сценарію',
-                    nextButton: 'Перейти до наступного сценарію'
-                },
-                de: {
-                    pageTitle: 'Bankkontoszenarien - Quiz',
-                    scenarioTitle: 'Szenarien für Bankkonten',
-                    prevButton: 'Zum vorherigen Szenario zurückkehren',
-                    nextButton: 'Zum nächsten Szenario wechseln'
-                }
-            };
+**Якщо ви обрали:**
 
-            document.getElementById('page-title').innerText = titles[lang].pageTitle;
-            document.getElementById('scenario-title').innerText = titles[lang].scenarioTitle;
-            document.getElementById('prev-button').innerText = titles[lang].prevButton;
-            document.getElementById('next-button').innerText = titles[lang].nextButton;
-        }
+**1. Поточний рахунок (Girokonto)**
 
-        document.getElementById('language-uk').addEventListener('click', () => switchLanguage('uk'));
-        document.getElementById('language-de').addEventListener('click', () => switchLanguage('de'));
+*Вірна відповідь!*
 
-        window.onload = loadScenario;
-    </script>
-</body>
-</html>
+**Пояснення:** Поточний рахунок призначений для щоденних фінансових операцій. Він дозволяє отримувати заробітну плату, сплачувати рахунки та здійснювати покупки. Анна зможе легко керувати своїми щоденними фінансами через цей рахунок.
+
+---
+
+**2. Ощадний рахунок (Sparkonto)**
+
+*Неправильна відповідь.*
+
+**Пояснення:** Ощадний рахунок призначений для накопичення коштів і отримання відсотків, але не підходить для щоденних транзакцій. Анна потребує рахунок для регулярних платежів та покупок. Правильна відповідь: Поточний рахунок (Girokonto).
+
+---
+
+**3. Депозитний рахунок (Festgeldkonto)**
+
+*Неправильна відповідь.*
+
+**Пояснення:** Депозитний рахунок використовується для вкладення коштів на фіксований період без доступу до них. Це не підходить для Анни, яка потребує постійного доступу до своїх грошей. Правильна відповідь: Поточний рахунок (Girokonto).
+
+---
+
+### **2. Ощадний рахунок (Sparkonto)**
+
+**Сценарій:**
+
+Олексій хоче відкладати гроші на майбутню подорож, але бажає мати можливість зняти їх у разі потреби. Він також хоче отримувати відсотки на свій залишок. Який рахунок йому слід вибрати?
+
+**Варіанти відповідей:**
+
+1. Ощадний рахунок (Sparkonto)
+2. Інвестиційний рахунок (Wertpapierdepot)
+3. Базовий рахунок (Basiskonto)
+
+---
+
+**Якщо ви обрали:**
+
+**1. Ощадний рахунок (Sparkonto)**
+
+*Вірна відповідь!*
+
+**Пояснення:** Ощадний рахунок ідеально підходить для накопичення коштів з можливістю отримувати відсотки. Олексій зможе відкладати гроші на подорож і при необхідності знімати їх.
+
+---
+
+**2. Інвестиційний рахунок (Wertpapierdepot)**
+
+*Неправильна відповідь.*
+
+**Пояснення:** Інвестиційний рахунок призначений для торгівлі цінними паперами і не гарантує збереження коштів. Він не підходить для короткострокових накопичень на подорож. Правильна відповідь: Ощадний рахунок (Sparkonto).
+
+---
+
+**3. Базовий рахунок (Basiskonto)**
+
+*Неправильна відповідь.*
+
+**Пояснення:** Базовий рахунок забезпечує основні банківські послуги для тих, хто не може відкрити інші рахунки. Він не пропонує вигідних відсотків для накопичення. Правильна відповідь: Ощадний рахунок (Sparkonto).
+
+---
+
+### **3. Базовий рахунок (Basiskonto)**
+
+**Сценарій:**
+
+Ірина нещодавно прибула до Німеччини як біженка. Вона не має постійного місця проживання або підтвердженого доходу, але потребує рахунок для отримання соціальної допомоги та здійснення основних платежів. Який рахунок вона може відкрити?
+
+**Варіанти відповідей:**
+
+1. Базовий рахунок (Basiskonto)
+2. Депозитний рахунок (Festgeldkonto)
+3. Поточний рахунок (Girokonto)
+
+---
+
+**Якщо ви обрали:**
+
+**1. Базовий рахунок (Basiskonto)**
+
+*Вірна відповідь!*
+
+**Пояснення:** Базовий рахунок надається всім особам, незалежно від їхнього фінансового стану. Він забезпечує основні банківські послуги, що дозволить Ірині отримувати соціальну допомогу та здійснювати платежі.
+
+---
+
+**2. Депозитний рахунок (Festgeldkonto)**
+
+*Неправильна відповідь.*
+
+**Пояснення:** Депозитний рахунок призначений для вкладення коштів на фіксований термін і не підходить для щоденних операцій. Ірині потрібен рахунок з миттєвим доступом до коштів. Правильна відповідь: Базовий рахунок (Basiskonto).
+
+---
+
+**3. Поточний рахунок (Girokonto)**
+
+*Неправильна відповідь.*
+
+**Пояснення:** Хоча поточний рахунок підходить для щоденних операцій, банки можуть відмовити в його відкритті без постійного місця проживання або доходу. Базовий рахунок є обов'язковим для надання всім особам. Правильна відповідь: Базовий рахунок (Basiskonto).
+
+---
+
+### **4. Депозитний рахунок (Festgeldkonto)**
+
+**Сценарій:**
+
+Микола має значну суму грошей, яку він хоче вкласти на рік з гарантованим відсотком. Він не планує користуватися цими грошима протягом цього часу. Який рахунок йому слід вибрати?
+
+**Варіанти відповідей:**
+
+1. Ощадний рахунок (Sparkonto)
+2. Депозитний рахунок (Festgeldkonto)
+3. Поточний рахунок (Girokonto)
+
+---
+
+**Якщо ви обрали:**
+
+**1. Ощадний рахунок (Sparkonto)**
+
+*Неправильна відповідь.*
+
+**Пояснення:** Хоча ощадний рахунок дозволяє накопичувати кошти з відсотками, відсоткова ставка може бути нижчою і не фіксованою. Микола шукає фіксований гарантований дохід. Правильна відповідь: Депозитний рахунок (Festgeldkonto).
+
+---
+
+**2. Депозитний рахунок (Festgeldkonto)**
+
+*Вірна відповідь!*
+
+**Пояснення:** Депозитний рахунок дозволяє вкласти гроші на фіксований термін з фіксованою відсотковою ставкою. Микола отримає гарантований дохід і не матиме доступу до коштів протягом року, що відповідає його планам.
+
+---
+
+**3. Поточний рахунок (Girokonto)**
+
+*Неправильна відповідь.*
+
+**Пояснення:** Поточний рахунок призначений для щоденних операцій і не пропонує високих відсоткових ставок. Він не підходить для інвестиції з гарантованим доходом. Правильна відповідь: Депозитний рахунок (Festgeldkonto).
+
+---
+
+### **5. Інвестиційний рахунок (Wertpapierdepot)**
+
+**Сценарій:**
+
+Світлана хоче інвестувати свої заощадження в акції та облігації з метою отримання більшого прибутку. Вона готова прийняти певний ризик. Який рахунок їй потрібен?
+
+**Варіанти відповідей:**
+
+1. Інвестиційний рахунок (Wertpapierdepot)
+2. Ощадний рахунок (Sparkonto)
+3. Базовий рахунок (Basiskonto)
+
+---
+
+**Якщо ви обрали:**
+
+**1. Інвестиційний рахунок (Wertpapierdepot)**
+
+*Вірна відповідь!*
+
+**Пояснення:** Інвестиційний рахунок використовується для купівлі та зберігання цінних паперів. Світлана зможе інвестувати в акції та облігації через цей рахунок.
+
+---
+
+**2. Ощадний рахунок (Sparkonto)**
+
+*Неправильна відповідь.*
+
+**Пояснення:** Ощадний рахунок пропонує низькі відсоткові ставки та не призначений для інвестицій у цінні папери. Світлана шукає можливість активного інвестування з потенційно вищим прибутком. Правильна відповідь: Інвестиційний рахунок (Wertpapierdepot).
+
+---
+
+**3. Базовий рахунок (Basiskonto)**
+
+*Неправильна відповідь.*
+
+**Пояснення:** Базовий рахунок забезпечує основні банківські послуги і не підходить для інвестування в цінні папери. Світлані потрібен спеціалізований рахунок для інвестицій. Правильна відповідь: Інвестиційний рахунок (Wertpapierdepot).
+
+---
+
+**Загальні пояснення:**
+
+- **Правильні відповіді** відповідають потребам та обставинам персонажів у сценаріях.
+- **Неправильні відповіді** не відповідають їхнім потребам через функціональні обмеження або невідповідність призначення рахунку.
+
+Ці сценарії допоможуть краще зрозуміти різницю між типами банківських рахунків та їхнє призначення.
