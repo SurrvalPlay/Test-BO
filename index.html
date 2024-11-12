@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Сценарії для банківських рахунків - Квіз</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js"></script>
+    <!-- Підключення зовнішнього файлу стилів для покращення підтримки коду та поділу структури і стилю -->
+    <!-- Підключення зовнішнього JavaScript для поділу структури, логіки та стилів -->
+</head>
+<body>
+    <!-- Перемикач мови -->
+    <div class="language-switch">
+        <button id="language-uk">Українська</button>
+        <button id="language-de">Deutsch</button>
+    </div>
+
+    <div class="scenario">
+        <h2 id="scenario-title">Сценарій для банківського рахунку</h2>
+        <!-- Основний блок сценарію для відображення питання -->
+        <p id="question"></p>
+        <!-- Контейнер для варіантів відповідей -->
+        <div id="options" class="options"></div>
+        <!-- Контейнер для відображення результату вибору користувача -->
+        <div id="result" class="result"></div>
+        <!-- Навігаційні кнопки для переміщення між питаннями -->
+        <div id="navigation" class="navigation" style="display: none;">
+            <button id="prev-button" onclick="goToPrevious()">Повернутися до минулого сценарію</button>
+            <button id="next-button" onclick="goToNext()">Перейти до наступного сценарію</button>
+        </div>
+    </div>
+    <!-- Коментарі для підвищення доступності та кращого розуміння структури HTML -->
+    <script>
+        function updateLanguage(lang) {
+            const titles = {
+                uk: {
+                    pageTitle: 'Сценарії для банківських рахунків - Квіз',
+                    scenarioTitle: 'Сценарій для банківського рахунку',
+                    prevButton: 'Повернутися до минулого сценарію',
+                    nextButton: 'Перейти до наступного сценарію'
+                },
+                de: {
+                    pageTitle: 'Bankkontoszenarien - Quiz',
+                    scenarioTitle: 'Szenarien für Bankkonten',
+                    prevButton: 'Zum vorherigen Szenario zurückkehren',
+                    nextButton: 'Zum nächsten Szenario wechseln'
+                }
+            };
+
+            document.getElementById('page-title').innerText = titles[lang].pageTitle;
+            document.getElementById('scenario-title').innerText = titles[lang].scenarioTitle;
+            document.getElementById('prev-button').innerText = titles[lang].prevButton;
+            document.getElementById('next-button').innerText = titles[lang].nextButton;
+        }
+
+        document.getElementById('language-uk').addEventListener('click', () => updateLanguage('uk'));
+        document.getElementById('language-de').addEventListener('click', () => updateLanguage('de'));
+    </script>
+</body>
+</html>
