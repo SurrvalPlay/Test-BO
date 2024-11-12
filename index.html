@@ -10,8 +10,8 @@
 <body>
     <!-- Перемикач мови -->
     <div class="language-switch">
-        <button id="language-uk">Українська</button>
-        <button id="language-de">Deutsch</button>
+        <button id="language-uk" onclick="switchLanguage('uk')">Українська</button>
+        <button id="language-de" onclick="switchLanguage('de')">Deutsch</button>
     </div>
 
     <div class="scenario">
@@ -157,9 +157,9 @@
             const scenario = scenarios[language][currentScenario];
             const resultContainer = document.getElementById("result");
             if (selected === scenario.correct) {
-                resultContainer.innerHTML = `<p><strong>Вірна відповідь!</strong> ${scenario.explanation}</p>`;
+                resultContainer.innerHTML = `<p><strong>${language === 'uk' ? 'Вірна відповідь!' : 'Richtige Antwort!'}</strong> ${scenario.explanation}</p>`;
             } else {
-                resultContainer.innerHTML = `<p><strong>Неправильна відповідь.</strong> ${scenario.explanation}</p>`;
+                resultContainer.innerHTML = `<p><strong>${language === 'uk' ? 'Неправильна відповідь.' : 'Falsche Antwort.'}</strong> ${scenario.explanation}</p>`;
             }
             document.getElementById("navigation").style.display = "block";
         }
@@ -205,5 +205,15 @@
                     prevButton: 'Zum vorherigen Szenario zurückkehren',
                     nextButton: 'Zum nächsten Szenario wechseln'
                 }
-            }
+            };
 
+            document.getElementById('page-title').innerText = titles[lang].pageTitle;
+            document.getElementById('scenario-title').innerText = titles[lang].scenarioTitle;
+            document.getElementById('prev-button').innerText = titles[lang].prevButton;
+            document.getElementById('next-button').innerText = titles[lang].nextButton;
+        }
+
+        window.onload = loadScenario;
+    </script>
+</body>
+</html>
