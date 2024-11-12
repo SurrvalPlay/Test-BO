@@ -7,6 +7,8 @@ body {
     align-items: center;
     min-height: 100vh;
     margin: 0;
+    padding: 0 10px;
+    box-sizing: border-box;
 }
 
 .language-switch {
@@ -15,6 +17,7 @@ body {
     right: 10px;
     display: flex;
     gap: 10px;
+    z-index: 100;
 }
 
 .language-switch button {
@@ -35,12 +38,13 @@ body {
 
 .scenario {
     background-color: #1e1e1e;
-    padding: 30px;
+    padding: 20px;
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
     max-width: 600px;
-    width: 90%;
+    width: 100%;
     border: 1px solid #333;
+    box-sizing: border-box;
 }
 
 h2 {
@@ -48,6 +52,7 @@ h2 {
     color: #ffffff;
     font-weight: 700;
     margin-bottom: 20px;
+    font-size: 1.8em;
 }
 
 #question {
@@ -95,6 +100,7 @@ h2 {
     padding: 15px;
     border-radius: 15px;
     gap: 10px;
+    flex-wrap: wrap;
 }
 
 .navigation button {
@@ -107,6 +113,8 @@ h2 {
     font-weight: 600;
     transition: background-color 0.3s, transform 0.2s;
     flex-grow: 1;
+    width: 100%;
+    max-width: 200px;
 }
 
 .navigation button:hover {
@@ -125,6 +133,7 @@ h2 {
     justify-content: space-around;
     border-top: 1px solid #333;
     flex-wrap: wrap;
+    box-sizing: border-box;
 }
 
 .bottom-nav button {
@@ -150,7 +159,7 @@ h2 {
 
 @media (max-width: 768px) {
     .scenario {
-        padding: 20px;
+        padding: 15px;
         border-radius: 15px;
     }
 
@@ -178,6 +187,7 @@ h2 {
         padding: 10px;
         font-size: 1em;
         width: 100%;
+        max-width: none;
     }
 
     .bottom-nav {
