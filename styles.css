@@ -11,26 +11,17 @@ body {
     box-sizing: border-box;
 }
 
-/* Контейнер для перемикача мови та GitHub кнопки */
-.header {
+.language-switch, .github-link {
+    position: fixed;
+    top: 10px;
+    right: 10px;
     display: flex;
+    gap: 10px;
+    z-index: 100;
     flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    margin-top: 10px;
+    justify-content: flex-end;
 }
 
-.language-switch {
-    display: flex;
-    gap: 10px;
-}
-
-.github-link {
-    display: flex;
-}
-
-/* Стилі для кнопок перемикача мови та GitHub */
 .language-switch button, .github-link button {
     background-color: #333;
     color: #ffffff;
@@ -40,6 +31,9 @@ body {
     cursor: pointer;
     font-weight: 600;
     transition: background-color 0.3s, transform 0.2s;
+    font-size: 1em;
+    min-width: 100px;
+    text-align: center;
 }
 
 .language-switch button:hover, .github-link button:hover {
@@ -56,6 +50,7 @@ body {
     width: 100%;
     border: 1px solid #333;
     box-sizing: border-box;
+    margin-top: 60px; /* Додано для врахування фіксованих кнопок */
 }
 
 h2 {
@@ -168,7 +163,6 @@ h2 {
     margin-bottom: 5px;
 }
 
-/* Адаптивні стилі для мобільних пристроїв */
 @media (max-width: 768px) {
     .scenario {
         padding: 15px;
@@ -202,21 +196,21 @@ h2 {
         max-width: none;
     }
 
-    /* Нові стилі для мобільних пристроїв */
-    .header {
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .language-switch button, .github-link button {
-        width: 100%;
-        margin: 5px 0;
+    .language-switch, .github-link {
+        position: static;
+        justify-content: center;
+        margin-bottom: 15px;
     }
 
     .bottom-nav {
         padding: 8px 10px;
     }
+
+    .bottom-nav button .icon {
+        font-size: 1.2em;
+    }
+}
+
 
     .bottom-nav button .icon {
         font-size: 1.2em;
