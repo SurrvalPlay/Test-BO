@@ -11,16 +11,27 @@ body {
     box-sizing: border-box;
 }
 
-.language-switch {
-    position: fixed;
-    top: 10px;
-    right: 10px;
+/* Контейнер для перемикача мови та GitHub кнопки */
+.header {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
     gap: 10px;
-    z-index: 100;
+    margin-top: 10px;
 }
 
-.language-switch button {
+.language-switch {
+    display: flex;
+    gap: 10px;
+}
+
+.github-link {
+    display: flex;
+}
+
+/* Стилі для кнопок перемикача мови та GitHub */
+.language-switch button, .github-link button {
     background-color: #333;
     color: #ffffff;
     border: none;
@@ -31,7 +42,7 @@ body {
     transition: background-color 0.3s, transform 0.2s;
 }
 
-.language-switch button:hover {
+.language-switch button:hover, .github-link button:hover {
     background-color: #555;
     transform: translateY(-2px);
 }
@@ -157,6 +168,7 @@ h2 {
     margin-bottom: 5px;
 }
 
+/* Адаптивні стилі для мобільних пристроїв */
 @media (max-width: 768px) {
     .scenario {
         padding: 15px;
@@ -188,6 +200,18 @@ h2 {
         font-size: 1em;
         width: 100%;
         max-width: none;
+    }
+
+    /* Нові стилі для мобільних пристроїв */
+    .header {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .language-switch button, .github-link button {
+        width: 100%;
+        margin: 5px 0;
     }
 
     .bottom-nav {
