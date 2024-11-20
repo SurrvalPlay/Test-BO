@@ -28,28 +28,6 @@
             <button id="next-button" onclick="goToNext()">Перейти до наступного сценарію</button>
         </div>
     </div>
-
-    function openGitHub() {
-    window.open('https://github.com/SurrvalPlay/Test-BO.git', '_blank');
-}
-
-function updateLanguage(lang) {
-    // ... ваш існуючий код ...
-
-    document.getElementById('github-button').innerText = titles[lang].githubButton;
-}
-
-const titles = {
-    uk: {
-        // ... ваші існуючі тексти ...
-        githubButton: 'GitHub проект'
-    },
-    de: {
-        // ... ваші існуючі тексти ...
-        githubButton: 'GitHub Projekt'
-    }
-};
-
     <!-- Коментарі для підвищення доступності та кращого розуміння структури HTML -->
     <script>
         let currentScenario = 0;
