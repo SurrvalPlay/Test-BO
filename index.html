@@ -64,7 +64,9 @@
                     ],
                     correct: 0,
                     explanation: "Базовий рахунок надається всім особам, незалежно від їхнього фінансового стану. Він забезпечує основні банківські послуги, що дозволить Ірині отримувати соціальну допомогу та здійснювати платежі."
-                },
+
+> ㅤㅤㅤㅤㅤㅤ:
+},
                 {
                     question: "Микола має значну суму грошей, яку він хоче вкласти на рік з гарантованим відсотком. Він не планує користуватися цими грошима протягом цього часу. Який рахунок йому слід вибрати?",
                     options: [
@@ -120,7 +122,9 @@
                 {
                     question: "Mykola hat eine beträchtliche Geldsumme, die er für ein Jahr mit garantierten Zinsen anlegen möchte. Er plant, dieses Geld in dieser Zeit nicht zu nutzen. Welches Konto sollte er wählen?",
                     options: [
-                        "Sparkonto",
+
+> ㅤㅤㅤㅤㅤㅤ:
+"Sparkonto",
                         "Festgeldkonto",
                         "Girokonto"
                     ],
@@ -140,17 +144,6 @@
             ]
         };
 
-
- <script src="scores.js"></script> <!-- Підключення нового файлу -->
-    <script>
-        let currentScenario = 0;
-        let language = 'uk';
-
-        const scenarios = {
-            uk: [ /* сценарії залишаються без змін */ ],
-            de: [ /* сценарії залишаються без змін */ ]
-        };
-
         function loadScenario() {
             const scenario = scenarios[language][currentScenario];
             document.getElementById("question").innerText = scenario.question;
@@ -162,104 +155,15 @@
                 button.onclick = () => checkAnswer(index);
                 optionsContainer.appendChild(button);
             });
-
-            // Відображення поточних балів
-            document.getElementById("score").innerText = ${language === 'uk' ? 'Бали' : 'Punkte'}: ${getScore()};
         }
 
         function checkAnswer(selected) {
             const scenario = scenarios[language][currentScenario];
             const resultContainer = document.getElementById("result");
             if (selected === scenario.correct) {
-                addPoint(); // Виклик функції з scores.js
                 resultContainer.innerHTML = <p><strong>${language === 'uk' ? 'Вірна відповідь!' : 'Richtige Antwort!'}</strong> ${scenario.explanation}</p>;
             } else {
                 resultContainer.innerHTML = <p><strong>${language === 'uk' ? 'Неправильна відповідь.' : 'Falsche Antwort.'}</strong> ${scenario.explanation}</p>;
-            }
-            document.getElementById("navigation").style.display = "block";
-
-            // Оновлення кількості балів
-            document.getElementById("score").innerText = ${language === 'uk' ? 'Бали' : 'Punkte'}: ${getScore()};
-        }
-
-        function goToPrevious() {
-            if (currentScenario > 0) {
-                currentScenario--;
-                loadScenario();
-                document.getElementById("result").innerHTML = "";
-                document.getElementById("navigation").style.display = "none";
-            }
-        }
-
-function goToNext() {
-            if (currentScenario < scenarios[language].length - 1) {
-                currentScenario++;
-                loadScenario();
-                document.getElementById("result").innerHTML = "";
-                document.getElementById("navigation").style.display = "none";
-            }
-        }
-
-        function switchLanguage(lang) {
-            language = lang;
-            currentScenario = 0;
-            resetScore(); // Скидання балів при зміні мови
-            updateLanguage(lang);
-            loadScenario();
-            document.getElementById("result").innerHTML = "";
-            document.getElementById("navigation").style.display = "none";
-        }
-
-        function updateLanguage(lang) {
-            const titles = {
-                uk: {
-                    pageTitle: 'Сценарії для банківських рахунків - Квіз',
-                    scenarioTitle: 'Сценарій для банківського рахунку',
-                    prevButton: 'Повернутися до минулого сценарію',
-                    nextButton: 'Перейти до наступного сценарію'
-                },
-                de: {
-                    pageTitle: 'Bankkontoszenarien - Quiz',
-                    scenarioTitle: 'Szenarien für Bankkonten',
-                    prevButton: 'Zum vorherigen Szenario zurückkehren',
-                    nextButton: 'Zum nächsten Szenario wechseln'
-                }
-            };
-
-            document.getElementById('page-title').innerText = titles[lang].pageTitle;
-            document.getElementById('scenario-title').innerText = titles[lang].scenarioTitle;
-            document.getElementById('prev-button').innerText = titles[lang].prevButton;
-            document.getElementById('next-button').innerText = titles[lang].nextButton;
-        }
-
-        window.onload = loadScenario;
-    </script>
-</body>
-</html>
-
-
-
-        
-        function loadScenario() {
-            const scenario = scenarios[language][currentScenario];
-            document.getElementById("question").innerText = scenario.question;
-            const optionsContainer = document.getElementById("options");
-            optionsContainer.innerHTML = "";
-            scenario.options.forEach((option, index) => {
-                const button = document.createElement("button");
-                button.innerText = option;
-                button.onclick = () => checkAnswer(index);
-                optionsContainer.appendChild(button);
-            });
-        }
-
-        function checkAnswer(selected) {
-            const scenario = scenarios[language][currentScenario];
-            const resultContainer = document.getElementById("result");
-            if (selected === scenario.correct) {
-                resultContainer.innerHTML = `<p><strong>${language === 'uk' ? 'Вірна відповідь!' : 'Richtige Antwort!'}</strong> ${scenario.explanation}</p>`;
-            } else {
-                resultContainer.innerHTML = `<p><strong>${language === 'uk' ? 'Неправильна відповідь.' : 'Falsche Antwort.'}</strong> ${scenario.explanation}</p>`;
             }
             document.getElementById("navigation").style.display = "block";
         }
@@ -307,7 +211,8 @@ function goToNext() {
                 }
             };
 
-            document.getElementById('page-title').innerText = titles[lang].pageTitle;
+> ㅤㅤㅤㅤㅤㅤ:
+document.getElementById('page-title').innerText = titles[lang].pageTitle;
             document.getElementById('scenario-title').innerText = titles[lang].scenarioTitle;
             document.getElementById('prev-button').innerText = titles[lang].prevButton;
             document.getElementById('next-button').innerText = titles[lang].nextButton;
