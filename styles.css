@@ -97,6 +97,14 @@ h2 {
     color: #bbbbbb;
 }
 
+.score {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 20px;
+    text-align: center;
+    color: #00ff99; /* Виділено зелений колір для лічильника */
+}
+
 .navigation {
     margin-top: 30px;
     display: flex;
@@ -205,12 +213,6 @@ h2 {
     .bottom-nav {
         padding: 8px 10px;
     }
-
-    .bottom-nav button .icon {
-        font-size: 1.2em;
-    }
-}
-
 
     .bottom-nav button .icon {
         font-size: 1.2em;
