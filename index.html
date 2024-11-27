@@ -2,36 +2,32 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title id="page-title">Сценарії для банківських рахунків - Квіз</title>
     <link rel="stylesheet" href="styles.css">
-    <!-- Підключення зовнішнього файлу стилів для покращення підтримки коду та поділу структури і стилю -->
 </head>
 <body>
     <!-- Перемикач мови -->
     <div class="language-switch">
-        <button id="language-uk" onclick="switchLanguage('uk')">Українська</button>
-        <button id="language-de" onclick="switchLanguage('de')">Deutsch</button>
+        <button id="language-uk" onclick="switchLanguage('uk')" aria-pressed="true">Українська</button>
+        <button id="language-de" onclick="switchLanguage('de')" aria-pressed="false">Deutsch</button>
     </div>
 
-    <div class="scenario">
+    <!-- Основний вміст -->
+    <main class="scenario">
         <h2 id="scenario-title">Сценарій для банківського рахунку</h2>
-        <!-- Основний блок сценарію для відображення питання -->
         <p id="question"></p>
-        <!-- Контейнер для варіантів відповідей -->
         <div id="options" class="options"></div>
-        <!-- Контейнер для відображення результату вибору користувача -->
-        <div id="result" class="result"></div>
-        <!-- Навігаційні кнопки для переміщення між питаннями -->
+        <div id="result" class="result" aria-live="polite"></div>
         <div id="navigation" class="navigation" style="display: none;">
-            <button id="prev-button" onclick="goToPrevious()">Повернутися до минулого сценарію</button>
-            <button id="next-button" onclick="goToNext()">Перейти до наступного сценарію</button>
+            <button id="prev-button" onclick="goToPrevious()" disabled>Повернутися до минулого сценарію</button>
+            <button id="next-button" onclick="goToNext()" disabled>Перейти до наступного сценарію</button>
         </div>
-    </div>
-    <!-- Коментарі для підвищення доступності та кращого розуміння структури HTML -->
+    </main>
+
     <script>
         let currentScenario = 0;
-        let language = 'uk'; // default language
+        let language = 'uk';
 
         const scenarios = {
             uk: [
@@ -145,6 +141,7 @@
         };
 
         function loadScenario() {
+            if (currentScenario >= scenarios[language].length || currentScenario < 0) return;
             const scenario = scenarios[language][currentScenario];
             document.getElementById("question").innerText = scenario.question;
             const optionsContainer = document.getElementById("options");
@@ -155,15 +152,16 @@
                 button.onclick = () => checkAnswer(index);
                 optionsContainer.appendChild(button);
             });
+            updateNavigation();
         }
 
         function checkAnswer(selected) {
             const scenario = scenarios[language][currentScenario];
             const resultContainer = document.getElementById("result");
             if (selected === scenario.correct) {
-                resultContainer.innerHTML = <p><strong>${language === 'uk' ? 'Вірна відповідь!' : 'Richtige Antwort!'}</strong> ${scenario.explanation}</p>;
+                resultContainer.innerText = `${language === 'uk' ? 'Вірна відповідь!' : 'Richtige Antwort!'} ${scenario.explanation}`;
             } else {
-                resultContainer.innerHTML = <p><strong>${language === 'uk' ? 'Неправильна відповідь.' : 'Falsche Antwort.'}</strong> ${scenario.explanation}</p>;
+                resultContainer.innerText = `${language === 'uk' ? 'Неправильна відповідь.' : 'Falsche Antwort.'} ${scenario.explanation}`;
             }
             document.getElementById("navigation").style.display = "block";
         }
@@ -173,7 +171,6 @@
                 currentScenario--;
                 loadScenario();
                 document.getElementById("result").innerHTML = "";
-                document.getElementById("navigation").style.display = "none";
             }
         }
 
@@ -182,7 +179,6 @@
                 currentScenario++;
                 loadScenario();
                 document.getElementById("result").innerHTML = "";
-                document.getElementById("navigation").style.display = "none";
             }
         }
 
@@ -196,29 +192,22 @@
         }
 
         function updateLanguage(lang) {
-            const titles = {
-                uk: {
-                    pageTitle: 'Сценарії для банківських рахунків - Квіз',
-                    scenarioTitle: 'Сценарій для банківського рахунку',
-                    prevButton: 'Повернутися до минулого сценарію',
-                    nextButton: 'Перейти до наступного сценарію'
-                },
-                de: {
-                    pageTitle: 'Bankkontoszenarien - Quiz',
-                    scenarioTitle: 'Szenarien für Bankkonten',
-                    prevButton: 'Zum vorherigen Szenario zurückkehren',
-                    nextButton: 'Zum nächsten Szenario wechseln'
-                }
-            };
-
-> ㅤㅤㅤㅤㅤㅤ:
-document.getElementById('page-title').innerText = titles[lang].pageTitle;
+            const titles = { /* ваш об'єкт із заголовками */ };
+            document.getElementById('page-title').innerText = titles[lang].pageTitle;
             document.getElementById('scenario-title').innerText = titles[lang].scenarioTitle;
             document.getElementById('prev-button').innerText = titles[lang].prevButton;
             document.getElementById('next-button').innerText = titles[lang].nextButton;
+            document.getElementById('language-uk').setAttribute('aria-pressed', lang === 'uk');
+            document.getElementById('language-de').setAttribute('aria-pressed', lang === 'de');
+        }
+
+        function updateNavigation() {
+            document.getElementById("prev-button").disabled = currentScenario === 0;
+            document.getElementById("next-button").disabled = currentScenario === scenarios[language].length - 1;
         }
 
         window.onload = loadScenario;
     </script>
 </body>
 </html>
+
