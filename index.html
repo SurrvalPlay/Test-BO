@@ -7,217 +7,30 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Перемикач мови -->
     <div class="language-switch">
         <button id="language-uk" onclick="switchLanguage('uk')">Українська</button>
         <button id="language-de" onclick="switchLanguage('de')">Deutsch</button>
     </div>
 
+    <!-- Контейнер для сценарію -->
     <div class="scenario">
-        <h2 id="scenario-title">Сценарій для банківського рахунку</h2>
+        <h2 id="scenario-title"></h2>
         <p id="question"></p>
         <div id="options" class="options"></div>
         <div id="result" class="result"></div>
         <div id="navigation" class="navigation" style="display: none;">
-            <button id="prev-button" onclick="goToPrevious()">Повернутися до минулого сценарію</button>
-            <button id="next-button" onclick="goToNext()">Перейти до наступного сценарію</button>
+            <button id="prev-button" onclick="goToPrevious()"></button>
+            <button id="next-button" onclick="goToNext()"></button>
         </div>
     </div>
 
+    <!-- Відображення результатів -->
     <div id="final-score" style="display: none; text-align: center; margin-top: 20px;">
         <h2 id="score-message"></h2>
+        <button id="restart-button" onclick="restartQuiz()"></button>
     </div>
 
-    <script>
-        let currentScenario = 0;
-        let language = 'uk';
-        let correctAnswersCount = 0;
-        const answeredScenarios = new Set();
-
-        const scenarios = {
-            uk: [
-                {
-                    question: "Анна тільки що переїхала до Німеччини для роботи. Їй потрібно отримувати заробітну плату, платити за оренду, комунальні послуги та робити щоденні покупки. Який банківський рахунок їй слід відкрити?",
-                    options: [
-                        "Поточний рахунок (Girokonto)",
-                        "Ощадний рахунок (Sparkonto)",
-                        "Депозитний рахунок (Festgeldkonto)"
-                    ],
-                    correct: 0,
-                    explanation: "Поточний рахунок призначений для щоденних фінансових операцій. Анна зможе легко керувати своїми щоденними фінансами через цей рахунок."
-                },
-                {
-                    question: "Олексій хоче відкладати гроші на майбутню подорож, але бажає мати можливість зняти їх у разі потреби. Він також хоче отримувати відсотки на свій залишок. Який рахунок йому слід вибрати?",
-                    options: [
-                        "Ощадний рахунок (Sparkonto)",
-                        "Інвестиційний рахунок (Wertpapierdepot)",
-                        "Базовий рахунок (Basiskonto)"
-                    ],
-                    correct: 0,
-                    explanation: "Ощадний рахунок ідеально підходить для накопичення коштів з можливістю отримувати відсотки. Олексій зможе відкладати гроші на подорож і при необхідності знімати їх."
-                },
-                {
-                    question: "Ірина нещодавно прибула до Німеччини як біженка. Вона не має постійного місця проживання або підтвердженого доходу, але потребує рахунок для отримання соціальної допомоги та здійснення основних платежів. Який рахунок вона може відкрити?",
-                    options: [
-                        "Базовий рахунок (Basiskonto)",
-                        "Депозитний рахунок (Festgeldkonto)",
-                        "Поточний рахунок (Girokonto)"
-                    ],
-                    correct: 0,
-                    explanation: "Базовий рахунок надається всім особам, незалежно від їхнього фінансового стану. Він забезпечує основні банківські послуги, що дозволить Ірині отримувати соціальну допомогу та здійснювати платежі."
-
-> ㅤㅤㅤㅤㅤㅤ:
-},
-                {
-                    question: "Микола має значну суму грошей, яку він хоче вкласти на рік з гарантованим відсотком. Він не планує користуватися цими грошима протягом цього часу. Який рахунок йому слід вибрати?",
-                    options: [
-                        "Ощадний рахунок (Sparkonto)",
-                        "Депозитний рахунок (Festgeldkonto)",
-                        "Поточний рахунок (Girokonto)"
-                    ],
-                    correct: 1,
-                    explanation: "Депозитний рахунок дозволяє вкласти гроші на фіксований термін з фіксованою відсотковою ставкою. Микола отримає гарантований дохід і не матиме доступу до коштів протягом року, що відповідає його планам."
-                },
-                {
-                    question: "Світлана хоче інвестувати свої заощадження в акції та облігації з метою отримання більшого прибутку. Вона готова прийняти певний ризик. Який рахунок їй потрібен?",
-                    options: [
-                        "Інвестиційний рахунок (Wertpapierdepot)",
-                        "Ощадний рахунок (Sparkonto)",
-                        "Базовий рахунок (Basiskonto)"
-                    ],
-                    correct: 0,
-                    explanation: "Інвестиційний рахунок використовується для купівлі та зберігання цінних паперів. Світлана зможе інвестувати в акції та облігації через цей рахунок."
-                }
-            ],
-            de: [
-                {
-                    question: "Anna ist gerade nach Deutschland gezogen, um zu arbeiten. Sie muss ihr Gehalt erhalten, Miete zahlen, Nebenkosten begleichen und tägliche Einkäufe tätigen. Welches Bankkonto sollte sie eröffnen?",
-                    options: [
-                        "Girokonto",
-                        "Sparkonto",
-                        "Festgeldkonto"
-                    ],
-                    correct: 0,
-                    explanation: "Ein Girokonto ist für tägliche finanzielle Transaktionen gedacht. Anna kann ihr tägliches Finanzmanagement problemlos über dieses Konto abwickeln."
-                },
-                {
-                    question: "Alexej möchte Geld für eine zukünftige Reise sparen, aber im Notfall darauf zugreifen können. Er möchte auch Zinsen auf sein Guthaben erhalten. Welches Konto sollte er wählen?",
-                    options: [
-                        "Sparkonto",
-                        "Wertpapierdepot",
-                        "Basiskonto"
-                    ],
-                    correct: 0,
-                    explanation: "Ein Sparkonto ist ideal zum Sparen und bietet die Möglichkeit, Zinsen zu erhalten. Alexej kann das Geld für seine Reise sparen und bei Bedarf darauf zugreifen."
-                },
-                {
-                    question: "Irina ist vor Kurzem als Flüchtling nach Deutschland gekommen. Sie hat keinen festen Wohnsitz oder bestätigtes Einkommen, benötigt aber ein Konto, um Sozialhilfe zu erhalten und grundlegende Zahlungen zu tätigen. Welches Konto kann sie eröffnen?",
-                    options: [
-                        "Basiskonto",
-                        "Festgeldkonto",
-                        "Girokonto"
-                    ],
-                    correct: 0,
-                    explanation: "Ein Basiskonto steht allen Personen unabhängig von ihrer finanziellen Situation zur Verfügung. Es bietet grundlegende Bankdienstleistungen, die es Irina ermöglichen, Sozialhilfe zu erhalten und Zahlungen zu tätigen."
-                },
-                {
-                    question: "Mykola hat eine beträchtliche Geldsumme, die er für ein Jahr mit garantierten Zinsen anlegen möchte. Er plant, dieses Geld in dieser Zeit nicht zu nutzen. Welches Konto sollte er wählen?",
-                    options: [
-
-> ㅤㅤㅤㅤㅤㅤ:
-"Sparkonto",
-                        "Festgeldkonto",
-                        "Girokonto"
-                    ],
-                    correct: 1,
-                    explanation: "Ein Festgeldkonto ermöglicht es, Geld für einen festen Zeitraum mit einem festen Zinssatz anzulegen. Mykola erhält garantierte Erträge und hat während des Jahres keinen Zugang zu seinem Geld, was seinen Plänen entspricht."
-                },
-                {
-                    question: "Svitlana möchte ihr Erspartes in Aktien und Anleihen investieren, um höhere Erträge zu erzielen. Sie ist bereit, ein gewisses Risiko einzugehen. Welches Konto benötigt sie?",
-                    options: [
-                        "Wertpapierdepot",
-                        "Sparkonto",
-                        "Basiskonto"
-                    ],
-                    correct: 0,
-                    explanation: "Ein Wertpapierdepot wird für den Kauf und die Lagerung von Wertpapieren genutzt. Svitlana kann darüber in Aktien und Anleihen investieren."
-                }
-            ]
-        };
-
-        function loadScenario() {
-            if (currentScenario >= scenarios[language].length) {
-                showFinalScore();
-                return;
-            }
-
-            const scenario = scenarios[language][currentScenario];
-            document.getElementById("question").innerText = scenario.question;
-
-            const optionsContainer = document.getElementById("options");
-            optionsContainer.innerHTML = "";
-            if (!answeredScenarios.has(currentScenario)) {
-                scenario.options.forEach((option, index) => {
-                    const button = document.createElement("button");
-                    button.innerText = option;
-                    button.onclick = () => checkAnswer(index);
-                    optionsContainer.appendChild(button);
-                });
-            } else {
-                document.getElementById("result").innerHTML = `<p>${language === 'uk' ? 'Ви вже відповіли на це питання.' : 'Sie haben diese Frage bereits beantwortet.'}</p>`;
-            }
-        }
-
-        function checkAnswer(selected) {
-            const scenario = scenarios[language][currentScenario];
-            if (answeredScenarios.has(currentScenario)) return;
-
-            const resultContainer = document.getElementById("result");
-            if (selected === scenario.correct) {
-                resultContainer.innerHTML = `<p><strong>${language === 'uk' ? 'Вірна відповідь!' : 'Richtige Antwort!'}</strong> ${scenario.explanation}</p>`;
-                correctAnswersCount++;
-            } else {
-                resultContainer.innerHTML = `<p><strong>${language === 'uk' ? 'Неправильна відповідь.' : 'Falsche Antwort.'}</strong> ${scenario.explanation}</p>`;
-            }
-
-            answeredScenarios.add(currentScenario);
-            document.getElementById("navigation").style.display = "block";
-        }
-
-        function showFinalScore() {
-            document.querySelector('.scenario').style.display = 'none';
-            const finalScore = document.getElementById("final-score");
-            finalScore.style.display = "block";
-            document.getElementById("score-message").innerText =
-                `${language === 'uk' ? 'Ваш результат:' : 'Ihr Ergebnis:'} ${correctAnswersCount} / ${scenarios[language].length}`;
-        }
-
-        function goToPrevious() {
-            if (currentScenario > 0) {
-                currentScenario--;
-                loadScenario();
-                document.getElementById("result").innerHTML = "";
-                document.getElementById("navigation").style.display = "none";
-            }
-        }
-
-        function goToNext() {
-            if (currentScenario < scenarios[language].length - 1) {
-                currentScenario++;
-                loadScenario();
-                document.getElementById("result").innerHTML = "";
-                document.getElementById("navigation").style.display = "none";
-            }
-        }
-
-        function switchLanguage(lang) {
-            language = lang;
-            currentScenario = 0;
-            loadScenario();
-            document.getElementById("result").innerHTML = "";
-            document.getElementById("navigation").style.display = "none";
-        }
-
-        window.onload = loadScenario;
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
