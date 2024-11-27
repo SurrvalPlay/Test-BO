@@ -5,10 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="page-title">Сценарії для банківських рахунків - Квіз</title>
     <link rel="stylesheet" href="styles.css">
-    <!-- Підключення зовнішнього файлу стилів для покращення підтримки коду та поділу структури і стилю -->
 </head>
 <body>
-    <!-- Перемикач мови -->
     <div class="language-switch">
         <button id="language-uk" onclick="switchLanguage('uk')">Українська</button>
         <button id="language-de" onclick="switchLanguage('de')">Deutsch</button>
@@ -16,22 +14,20 @@
 
     <div class="scenario">
         <h2 id="scenario-title">Сценарій для банківського рахунку</h2>
-        <!-- Основний блок сценарію для відображення питання -->
+        <div id="score" class="score">Кількість правильних відповідей: 0</div>
         <p id="question"></p>
-        <!-- Контейнер для варіантів відповідей -->
         <div id="options" class="options"></div>
-        <!-- Контейнер для відображення результату вибору користувача -->
         <div id="result" class="result"></div>
-        <!-- Навігаційні кнопки для переміщення між питаннями -->
         <div id="navigation" class="navigation" style="display: none;">
             <button id="prev-button" onclick="goToPrevious()">Повернутися до минулого сценарію</button>
             <button id="next-button" onclick="goToNext()">Перейти до наступного сценарію</button>
         </div>
     </div>
-    <!-- Коментарі для підвищення доступності та кращого розуміння структури HTML -->
+
     <script>
         let currentScenario = 0;
-        let language = 'uk'; // default language
+        let language = 'uk';
+        let correctAnswersCount = 0;
 
         const scenarios = {
             uk: [
@@ -64,7 +60,9 @@
                     ],
                     correct: 0,
                     explanation: "Базовий рахунок надається всім особам, незалежно від їхнього фінансового стану. Він забезпечує основні банківські послуги, що дозволить Ірині отримувати соціальну допомогу та здійснювати платежі."
-                },
+
+> ㅤㅤㅤㅤㅤㅤ:
+},
                 {
                     question: "Микола має значну суму грошей, яку він хоче вкласти на рік з гарантованим відсотком. Він не планує користуватися цими грошима протягом цього часу. Який рахунок йому слід вибрати?",
                     options: [
@@ -120,7 +118,9 @@
                 {
                     question: "Mykola hat eine beträchtliche Geldsumme, die er für ein Jahr mit garantierten Zinsen anlegen möchte. Er plant, dieses Geld in dieser Zeit nicht zu nutzen. Welches Konto sollte er wählen?",
                     options: [
-                        "Sparkonto",
+
+> ㅤㅤㅤㅤㅤㅤ:
+"Sparkonto",
                         "Festgeldkonto",
                         "Girokonto"
                     ],
@@ -151,17 +151,20 @@
                 button.onclick = () => checkAnswer(index);
                 optionsContainer.appendChild(button);
             });
+            updateScoreDisplay();
         }
 
         function checkAnswer(selected) {
             const scenario = scenarios[language][currentScenario];
             const resultContainer = document.getElementById("result");
             if (selected === scenario.correct) {
+                correctAnswersCount++;
                 resultContainer.innerHTML = `<p><strong>${language === 'uk' ? 'Вірна відповідь!' : 'Richtige Antwort!'}</strong> ${scenario.explanation}</p>`;
             } else {
                 resultContainer.innerHTML = `<p><strong>${language === 'uk' ? 'Неправильна відповідь.' : 'Falsche Antwort.'}</strong> ${scenario.explanation}</p>`;
             }
             document.getElementById("navigation").style.display = "block";
+            updateScoreDisplay();
         }
 
         function goToPrevious() {
@@ -185,6 +188,7 @@
         function switchLanguage(lang) {
             language = lang;
             currentScenario = 0;
+            correctAnswersCount = 0;
             updateLanguage(lang);
             loadScenario();
             document.getElementById("result").innerHTML = "";
@@ -206,11 +210,15 @@
                     nextButton: 'Zum nächsten Szenario wechseln'
                 }
             };
-
             document.getElementById('page-title').innerText = titles[lang].pageTitle;
             document.getElementById('scenario-title').innerText = titles[lang].scenarioTitle;
             document.getElementById('prev-button').innerText = titles[lang].prevButton;
             document.getElementById('next-button').innerText = titles[lang].nextButton;
+        }
+
+        function updateScoreDisplay() {
+            const scoreElement = document.getElementById("score");
+            scoreElement.innerText = `${language === 'uk' ? 'Кількість правильних відповідей' : 'Anzahl richtiger Antworten'}: ${correctAnswersCount}`;
         }
 
         window.onload = loadScenario;
