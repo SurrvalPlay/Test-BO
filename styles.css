@@ -11,18 +11,16 @@ body {
     box-sizing: border-box;
 }
 
-.language-switch, .github-link {
+.language-switch {
     position: fixed;
     top: 10px;
     right: 10px;
     display: flex;
     gap: 10px;
     z-index: 100;
-    flex-wrap: wrap;
-    justify-content: flex-end;
 }
 
-.language-switch button, .github-link button {
+.language-switch button {
     background-color: #333;
     color: #ffffff;
     border: none;
@@ -36,7 +34,7 @@ body {
     text-align: center;
 }
 
-.language-switch button:hover, .github-link button:hover {
+.language-switch button:hover {
     background-color: #555;
     transform: translateY(-2px);
 }
@@ -50,7 +48,7 @@ body {
     width: 100%;
     border: 1px solid #333;
     box-sizing: border-box;
-    margin-top: 60px; /* Додано для врахування фіксованих кнопок */
+    margin-top: 60px;
 }
 
 h2 {
@@ -97,14 +95,6 @@ h2 {
     color: #bbbbbb;
 }
 
-.score {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-top: 20px;
-    text-align: center;
-    color: #00ff99; /* Виділено зелений колір для лічильника */
-}
-
 .navigation {
     margin-top: 30px;
     display: flex;
@@ -136,41 +126,6 @@ h2 {
     transform: translateY(-2px);
 }
 
-.bottom-nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: #1e1e1e;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-around;
-    border-top: 1px solid #333;
-    flex-wrap: wrap;
-    box-sizing: border-box;
-}
-
-.bottom-nav button {
-    background: none;
-    border: none;
-    color: #ffffff;
-    font-size: 1em;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: color 0.3s;
-}
-
-.bottom-nav button:hover {
-    color: #bbbbbb;
-}
-
-.bottom-nav button .icon {
-    font-size: 1.5em;
-    margin-bottom: 5px;
-}
-
 @media (max-width: 768px) {
     .scenario {
         padding: 15px;
@@ -195,22 +150,5 @@ h2 {
         border-radius: 10px;
         flex-direction: column;
         gap: 10px;
-    }
-
-    .navigation button {
-        padding: 10px;
-        font-size: 1em;
-        width: 100%;
-        max-width: none;
-    }
-
-    .language-switch, .github-link {
-        position: static;
-        justify-content: center;
-        margin-bottom: 15px;
-    }
-
-    .bottom-nav {
-        padding: 8px 10px;
     }
 }
